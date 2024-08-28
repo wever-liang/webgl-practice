@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>webGL</title>
+  <script src="../../library/mdn.js"></script>
+  <!-- The vertex shader operates on individual vertices in our model data by setting gl_Position -->
+  <script id="vertex-shader" type="x-shader/x-vertex">
+    // Each point has a position and color
+    attribute vec3 position;
+    attribute vec4 color;
+    
+    // The transformation matrix
+    uniform mat4 model;
+  
+    // Pass the color attribute down to the fragment shader
+    varying vec4 vColor;
+  
+    void main() {
+      
+      //Pass the color down to the fragment shader
+      vColor = color;
+      
+      // Multiply the 
+      gl_Position = model * vec4(position, 1.0);
+    }
+  </script>
+  
+  <!-- The fragment shader determines the color of the final pixel by setting gl_FragColor -->
+  <script id="fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec4 vColor;
+    
+    void main() {
+      gl_FragColor = vColor;
+      // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    }
+  </script>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script src="./cube.js"></script>
+  <script src="./main.js"></script>
+
+  <style>
+    html, body {
+      width:100%;
+      height:100%;
+      margin: 0;
+    }
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  </style>
+</body>
+</html>
